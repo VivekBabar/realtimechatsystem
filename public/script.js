@@ -488,6 +488,12 @@ function renderContactsList() {
   });
 }
 
+function backToContactsList() {
+  document.getElementById("chat-dashboard").classList.remove("chat-active");
+  activeChatUser = null;
+  renderContactsList();
+}
+
 function selectChatContact(username) {
   if (activeChatUser === username) return;
   
@@ -647,6 +653,9 @@ function appendMessageBubble(msg, isOutgoing) {
     const img = document.createElement("img");
     img.src = msg.text;
     img.alt = msg.fileName || "Shared Image";
+    img.onload = () => {
+      scrollMessageBoardToBottom();
+    };
     img.onclick = () => openLightbox(msg.text, msg.fileName || "Image Preview", "image");
     bubble.appendChild(img);
     
@@ -657,6 +666,9 @@ function appendMessageBubble(msg, isOutgoing) {
     video.src = msg.text;
     video.controls = true;
     video.playsInline = true;
+    video.onloadedmetadata = () => {
+      scrollMessageBoardToBottom();
+    };
     video.addEventListener("dblclick", () => {
       video.pause();
       openLightbox(msg.text, msg.fileName || "Video Preview", "video");

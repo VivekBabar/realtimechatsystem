@@ -119,6 +119,9 @@
           <!-- Active Contact Header -->
           <header class="chat-header">
             <div class="active-contact-profile">
+              <button type="button" id="btn-back-to-list" class="back-btn" title="Back to Contacts" onclick="backToContactsList()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              </button>
               <div class="avatar-glow active-contact-avatar" id="active-avatar">👤</div>
               <div class="active-contact-info">
                 <h3 id="active-username">Username</h3>
@@ -154,6 +157,16 @@
 
           <!-- Bottom Control Bar -->
           <footer class="chat-footer">
+            <!-- Typing Status indicator (relocated to float above input) -->
+            <div class="typing-bubble-container" id="recipient-typing-indicator">
+              <span class="typing-name" id="typing-username-text">Someone</span> is typing
+              <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
             <div class="input-actions-wrapper">
               <!-- Attachment File Button -->
               <button type="button" id="btn-attach" class="footer-btn" title="Send Image, Video, or Document" onclick="triggerFileAttachmentClick()">
@@ -169,15 +182,6 @@
               <!-- Main chat text input -->
               <div class="input-input-area">
                 <input type="text" id="chat-message-input" placeholder="Type a secure message..." autocomplete="off" oninput="handleTypingNotification()">
-                <!-- Typing Status indicator (inside input bar area) -->
-                <div class="typing-bubble-container" id="recipient-typing-indicator">
-                  <span class="typing-name" id="typing-username-text">Someone</span> is typing
-                  <div class="typing-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </div>
               </div>
 
               <!-- Voice Note Media Record Button (Press-and-hold style or toggle-click style) -->

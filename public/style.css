@@ -49,6 +49,7 @@ body {
   background-image: var(--bg-gradient);
   color: var(--text-primary);
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -97,6 +98,8 @@ h1, h2, h3, .user-codename {
   pointer-events: none;
   opacity: 0.4;
   mix-blend-mode: screen;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .orb-1 {
@@ -737,6 +740,33 @@ h1, h2, h3, .user-codename {
   box-shadow: 0 0 12px var(--accent-glow);
 }
 
+/* Mobile Navigation Back Button */
+.back-btn {
+  display: none;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-smooth);
+  flex-shrink: 0;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.back-btn:active {
+  transform: scale(0.95);
+}
+
 /* Messages Stream Area */
 .messages-board {
   flex: 1;
@@ -981,6 +1011,7 @@ h1, h2, h3, .user-codename {
   padding: 18px 24px;
   border-top: 1px solid var(--glass-border);
   background: rgba(14, 10, 31, 0.4);
+  position: relative;
 }
 
 .input-actions-wrapper {
@@ -1069,7 +1100,7 @@ h1, h2, h3, .user-codename {
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid var(--glass-border);
   padding: 14px 20px;
-  padding-right: 120px; /* Leave space for typing indicators if needed */
+  padding-right: 20px; /* Reduced from 120px */
   border-radius: 30px;
   color: var(--text-primary);
   font-size: 0.95rem;
@@ -1083,20 +1114,23 @@ h1, h2, h3, .user-codename {
   background: rgba(0, 0, 0, 0.35);
 }
 
-/* Inside-Input Typing Indicator */
+/* Outside-Input Typing Indicator (Floats above chat input) */
 .typing-bubble-container {
   position: absolute;
-  right: 18px;
+  bottom: calc(100% + 10px);
+  left: 24px;
   display: none;
   align-items: center;
   gap: 6px;
   font-size: 0.75rem;
   color: var(--accent);
-  background: rgba(6, 3, 18, 0.8);
-  padding: 4px 10px;
+  background: rgba(14, 10, 31, 0.95);
+  padding: 6px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(0, 210, 211, 0.25);
+  border: 1px solid rgba(0, 210, 211, 0.3);
   pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   animation: fade-in 0.2s ease forwards;
 }
 
@@ -1173,11 +1207,15 @@ h1, h2, h3, .user-codename {
   .app-layout {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
   }
   
   .glass-card {
     border-radius: 0;
     border: none;
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    background: rgba(14, 10, 31, 0.85);
   }
   
   .dashboard-layout {
@@ -1186,6 +1224,14 @@ h1, h2, h3, .user-codename {
 
   .sidebar {
     display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .chat-pane {
+    display: none; /* Hide chat pane by default on mobile when no active chat */
+    width: 100%;
+    height: 100%;
   }
 
   /* When chat is active on mobile, hide sidebar */
@@ -1204,6 +1250,56 @@ h1, h2, h3, .user-codename {
   
   .message-row {
     max-width: 85%;
+  }
+
+  /* Back button displayed on mobile chat headers */
+  .back-btn {
+    display: flex;
+  }
+
+  /* Mobile visual optimizations */
+  .glow-orb {
+    animation: none !important;
+    filter: blur(80px);
+  }
+
+  /* Adaptive chat elements padding and size for mobile layout */
+  .chat-header {
+    padding: 12px 16px;
+  }
+
+  .messages-board {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .chat-footer {
+    padding: 12px 16px;
+  }
+
+  .input-actions-wrapper {
+    gap: 8px;
+  }
+
+  .footer-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .btn-send {
+    width: 38px;
+    height: 38px;
+  }
+
+  #chat-message-input {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    padding-right: 16px;
+  }
+
+  .typing-bubble-container {
+    left: 16px;
+    bottom: calc(100% + 8px);
   }
 }
 
